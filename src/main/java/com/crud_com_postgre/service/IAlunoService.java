@@ -4,6 +4,7 @@ import com.crud_com_postgre.entity.Aluno;
 import com.crud_com_postgre.entity.AvaliacaoFisica;
 import com.crud_com_postgre.entity.form.AlunoForm;
 import com.crud_com_postgre.entity.form.AlunoUpdateForm;
+import com.crud_com_postgre.response.ApiResponse;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public interface IAlunoService {
      * @return Aluno recém-atualizado.
      */
     Aluno update(Long id, AlunoUpdateForm formUpdate);
+    ApiResponse update(Long id, AlunoUpdateForm formUpdate, String httpMethod);
 
     /**
      * Deleta um Aluno específico.

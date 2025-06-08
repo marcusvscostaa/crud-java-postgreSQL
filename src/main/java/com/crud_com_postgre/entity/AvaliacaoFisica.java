@@ -1,5 +1,6 @@
 package com.crud_com_postgre.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class AvaliacaoFisica {
 
     @ManyToOne
     @JoinColumn(name = "aluno_id")
+    @JsonBackReference
     private Aluno aluno;
     private LocalDateTime dataAvaliacao = LocalDateTime.now();
 
