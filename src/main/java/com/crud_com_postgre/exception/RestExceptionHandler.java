@@ -1,5 +1,6 @@
 package com.crud_com_postgre.exception;
 
+import com.crud_com_postgre.response.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -34,5 +37,17 @@ public class RestExceptionHandler {
 
         // Retorna o objeto de erro customizado com o status correto
         return ResponseEntity.status(status).body(err);
+    }
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ApiResponse> handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ApiResponse response = ApiResponse.builder()
+                .timestamp(ZonedDateTime.now())
+                .status("RECURSO_NAO_ENCONTRADO")
+                .message(ex.getMessage())
+                .method(request.getMethod())
+                .data(null)
+                .build();
+        return ResponseEntity.status(status).body(response);
     }
 }

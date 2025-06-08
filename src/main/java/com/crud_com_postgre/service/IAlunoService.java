@@ -21,13 +21,13 @@ public interface IAlunoService {
      * @param id id do Aluno que será exibido.
      * @return Aluno de acordo com o Id fornecido.
      */
-    Aluno get(Long id);
+    ApiResponse get(Long id, String httpMethod);
 
     /**
      * Retorna os Alunos que estão no banco de dados.
      * @return Uma lista os Alunos que estão salvas no DB.
      */
-    List<Aluno> getAll();
+    List<Aluno> getAll(String dataNascimento);
 
     /**
      * Atualiza o Aluno.
@@ -36,7 +36,6 @@ public interface IAlunoService {
      * no banco de dados.
      * @return Aluno recém-atualizado.
      */
-    Aluno update(Long id, AlunoUpdateForm formUpdate);
     ApiResponse update(Long id, AlunoUpdateForm formUpdate, String httpMethod);
 
     /**
@@ -50,7 +49,6 @@ public interface IAlunoService {
      * @param id id do aluno que será recuperada a lista de avaliações
      * @return uma lista com todas as avaliações do aluno de acordo com o Id
      */
-    List<AvaliacaoFisica> getAllAvaliacaoFisicaId(Long id);
 
     List<AvaliacaoFisica> getAllAvaliacoes(Long id);
 }

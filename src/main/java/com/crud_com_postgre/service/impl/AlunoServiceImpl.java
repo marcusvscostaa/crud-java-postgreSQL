@@ -4,12 +4,15 @@ import com.crud_com_postgre.entity.Aluno;
 import com.crud_com_postgre.entity.AvaliacaoFisica;
 import com.crud_com_postgre.entity.form.AlunoForm;
 import com.crud_com_postgre.entity.form.AlunoUpdateForm;
+import com.crud_com_postgre.infra.utils.JavaTimeUtils;
 import com.crud_com_postgre.repository.AlunoRepository;
 import com.crud_com_postgre.response.ApiResponse;
 import com.crud_com_postgre.service.IAlunoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -34,19 +37,36 @@ public class AlunoServiceImpl implements IAlunoService {
     }
 
     @Override
-    public Aluno get(Long id) {
-        return null;
+    public ApiResponse get(Long id, String httpMethod) {
+        Map<String, Object> dataAluno = new HashMap<>();
+
+        Aluno aluno = repository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Aluno não encontrado com o id: " + id));
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+        Map<String, Object> alunoMap = mapper.convertValue(aluno, Map.class);
+
+        dataAluno.put("data", aluno);
+        return ApiResponse.builder()
+                .timestamp(ZonedDateTime.now())
+                .status("SUCESSO")
+                .message("Aluno encontrado com sucesso")
+                .method(httpMethod)
+                .data(alunoMap)
+                .build();
     }
 
     @Override
-    public List<Aluno> getAll() {
-        return repository.findAll();
+    public List<Aluno> getAll(String dataNascimento) {
+        if(dataNascimento == null){
+            return repository.findAll();
+        } else{
+            LocalDate localDate = LocalDate.parse(dataNascimento, JavaTimeUtils.LOCAL_DATE_FORMATTER);
+            return repository.findByDataNascimento(localDate);
+        }
     }
 
-    @Override
-    public Aluno update(Long id, AlunoUpdateForm formUpdate) {
-        return null;
-    }
 
     @Override
     public ApiResponse update(Long id, AlunoUpdateForm formUpdate, String httpMethod) {
@@ -88,10 +108,6 @@ public class AlunoServiceImpl implements IAlunoService {
         repository.deleteById(id);
     }
 
-    @Override
-    public List<AvaliacaoFisica> getAllAvaliacaoFisicaId(Long id) {
-        return List.of();
-    }
 
     @Override
     public List<AvaliacaoFisica> getAllAvaliacoes(Long id) {
