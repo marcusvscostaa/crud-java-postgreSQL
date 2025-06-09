@@ -2,6 +2,7 @@ package com.crud_com_postgre.service;
 
 import com.crud_com_postgre.entity.Matricula;
 import com.crud_com_postgre.entity.form.MatriculaForm;
+import com.crud_com_postgre.response.ApiResponse;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface IMatriculaService {
      * @param id - id da Matrícula que será exibida.
      * @return - Matrícula de acordo com o Id fornecido.
      */
-    Matricula get(Long id);
+    ApiResponse get(Long id, String httpMethod);
 
     /**
      * Retorna todas as Matrículas que estão no banco de dados.

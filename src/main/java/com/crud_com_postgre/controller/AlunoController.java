@@ -31,23 +31,22 @@ public class AlunoController {
         return service.get(id, request.getMethod());
     }
 
-    @PostMapping
-    public Aluno create(@Valid @RequestBody AlunoForm form){
-        return service.create(form);
-
-    }
-
     @GetMapping("/avaliacoes/{id}")
     public List<AvaliacaoFisica> getAllAvaliacoes(@PathVariable Long id){
         return service.getAllAvaliacoes(id);
     }
 
-    @DeleteMapping("/{id}") void delete(@PathVariable Long id){
-        service.delete(id);
-    }
+    @PostMapping
+    public Aluno create(@Valid @RequestBody AlunoForm form){
+        return service.create(form);
 
+    }
     @PatchMapping("/atualizar/{id}")
     public ApiResponse update(@RequestBody AlunoUpdateForm formUpdate, @PathVariable Long id, HttpServletRequest request){
         return service.update(id, formUpdate, request.getMethod());
+    }
+
+    @DeleteMapping("/{id}") void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }

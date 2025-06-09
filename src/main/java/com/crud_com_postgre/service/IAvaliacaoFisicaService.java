@@ -3,6 +3,7 @@ package com.crud_com_postgre.service;
 import com.crud_com_postgre.entity.AvaliacaoFisica;
 import com.crud_com_postgre.entity.form.AvaliacaoFisicaForm;
 import com.crud_com_postgre.entity.form.AvaliacaoFisicaUpdateForm;
+import com.crud_com_postgre.response.ApiResponse;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface IAvaliacaoFisicaService {
      * @param id - id da Avaliação Física que será exibida.
      * @return - Avaliação Física de acordo com o Id fornecido.
      */
-    AvaliacaoFisica get(Long id);
+    ApiResponse get(Long id, String httpMethod);
 
     /**
      * Retorna todas as Avaliações Física que estão no banco de dados.
@@ -35,7 +36,7 @@ public interface IAvaliacaoFisicaService {
      * Física no banco de dados.
      * @return - Avaliação Física recém-atualizada.
      */
-    AvaliacaoFisica update(Long id, AvaliacaoFisicaUpdateForm formUpdate);
+    ApiResponse update(Long id, AvaliacaoFisicaUpdateForm formUpdate, String request);
 
     /**
      * Deleta uma Avaliação Física específica.

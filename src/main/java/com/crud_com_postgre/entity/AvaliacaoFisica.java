@@ -30,7 +30,7 @@ public class AvaliacaoFisica {
     private LocalDateTime dataAvaliacao = LocalDateTime.now();
 
     @Column(name = "peso_atual")
-    private double peso;
+    private Double  peso;
     @Column(name = "altura_atual")
-    private double altura;
+    private Double altura;
 }

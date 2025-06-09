@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvaliacaoFisicaUpdateForm {
-    private double peso;
-    private double altura;
+    private Double  peso;
+    private Double  altura;
 }
